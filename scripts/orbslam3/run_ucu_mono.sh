@@ -15,7 +15,8 @@ command -v evo_ape >/dev/null || { echo "evo not found: activate the venv first"
 mkdir -p "$OUT"
 TMP="$(mktemp -d)"
 (cd "$TMP" && "$ORB/Examples/Monocular/mono_tum" "$ORB/Vocabulary/ORBvoc.txt" "$CFG" "$SEQ_DIR" \
-  | tee "$OUT/log_run$RUN.txt")
+  | tee "$OUT/log_run$RUN.txt") || echo "WARN: mono exited with code $?"
+[ -s "$TMP/KeyFrameTrajectory.txt" ] || { echo "No trajectory saved"; exit 1; }
 mv "$TMP/KeyFrameTrajectory.txt" "$OUT/traj_run$RUN.txt"; rm -rf "$TMP"
 
 ATE=$(evo_ape tum "$GT" "$OUT/traj_run$RUN.txt" -as --t_max_diff 0.02 \
