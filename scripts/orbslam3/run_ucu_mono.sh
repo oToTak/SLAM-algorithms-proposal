@@ -16,8 +16,17 @@ mkdir -p "$OUT"
 TMP="$(mktemp -d)"
 (cd "$TMP" && "$ORB/Examples/Monocular/mono_tum" "$ORB/Vocabulary/ORBvoc.txt" "$CFG" "$SEQ_DIR" \
   | tee "$OUT/log_run$RUN.txt") || echo "WARN: mono exited with code $?"
-[ -s "$TMP/KeyFrameTrajectory.txt" ] || { echo "No trajectory saved"; exit 1; }
-mv "$TMP/KeyFrameTrajectory.txt" "$OUT/traj_run$RUN.txt"; rm -rf "$TMP"
+if [ -s "$TMP/CameraTrajectory.txt" ]; then
+  TRAJ_KIND="per-frame trajectory"
+  awk '{split($1,a,"."); s=a[1]; $1=substr(s,1,length(s)-9) "." substr(s,length(s)-8); print}' \
+    "$TMP/CameraTrajectory.txt" > "$OUT/traj_run$RUN.txt"
+elif [ -s "$TMP/KeyFrameTrajectory.txt" ]; then
+  TRAJ_KIND="keyframe trajectory"
+  mv "$TMP/KeyFrameTrajectory.txt" "$OUT/traj_run$RUN.txt"
+else
+  echo "No trajectory saved"; exit 1
+fi
+rm -rf "$TMP"
 
 ATE=$(evo_ape tum "$GT" "$OUT/traj_run$RUN.txt" -as --t_max_diff 0.02 \
         --save_results "$OUT/ape_run$RUN.zip" --no_warnings | awk '/rmse/{print $2}')
@@ -44,7 +53,7 @@ commit: $COMMIT
 config: configs/orbslam3/UCU_mono.yaml
 coverage: $COV
 tracking_lost: false
-notes: "keyframe trajectory; Sim(3)-aligned to GNSS (position-only, ~1 m)"
+notes: "$TRAJ_KIND; Sim(3)-aligned to GNSS (position-only, ~1 m)"
 YML
 CSV="$ROOT/results/summary.csv"
 [ -f "$CSV" ] || echo "method,mode,dataset,seq,run,ate_rmse_m,rpe_trans_m,coverage,tracking_lost,commit" > "$CSV"
