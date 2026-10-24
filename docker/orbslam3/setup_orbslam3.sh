@@ -26,6 +26,9 @@ cd "$HOME/ORB_SLAM3"
 git checkout "$ORB_COMMIT"
 sed -i 's/find_package(OpenCV 4.4)/find_package(OpenCV 4.2)/' CMakeLists.txt
 sed -i "s/make -j[0-9]*/make -j$JOBS/" build.sh
+grep -q 'SaveTrajectoryEuRoC' Examples/Monocular/mono_tum.cc || \
+  sed -i 's|^    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");|&\n    SLAM.SaveTrajectoryEuRoC("CameraTrajectory.txt");|' \
+  Examples/Monocular/mono_tum.cc
 ./build.sh
 
 ls -l Examples/Monocular/mono_tum Examples/RGB-D/rgbd_tum
