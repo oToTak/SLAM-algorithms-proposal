@@ -1,3 +1,5 @@
 method,mode,dataset,seq,run,ate_rmse_m,rpe_trans_m,coverage,tracking_lost,commit
 orbslam3,rgbd,tum,fr1_xyz,1,0.010365,,1.00,false,16dd357
 orbslam3,mono,tum,fr1_xyz,1,0.008942,,0.99,false,16dd357
+orbslam3,mono,ucu,seq01,1,1.192308,25.673931,1.00,false,dc476aa
+orbslam3,mono,ucu,seq01,2,1.782605,14.497628,0.99,false,314ff05
