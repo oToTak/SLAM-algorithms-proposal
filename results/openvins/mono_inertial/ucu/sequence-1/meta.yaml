@@ -1,0 +1,10 @@
+method: openvins
+mode: mono_inertial
+dataset: ucu
+seq: sequence-1
+run: 1
+commit: unknown
+config: /workspace/configs/ucu_config/estimator_config.yaml
+coverage: 1.00
+tracking_lost: false
+notes: "Run via Docker ROS 2 bag play"
