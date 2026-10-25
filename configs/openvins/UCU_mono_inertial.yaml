@@ -1,0 +1,19 @@
+cat << 'EOF' > configs/openvins/UCU_mono_inertial.yaml
+cam0_is_fisheye: false
+cam0_distortion_model: "radtan"
+cam0_intrinsics: [601.1733383650345, 600.2663647399592, 314.0164516341506, 250.039444021504]
+cam0_distortion_coeffs: [0.139268662386042, -0.30741279731381366, 0.0007272799549728076, 0.0006655761403425819]
+
+T_imu_cam0:
+  - [-0.99934057,  0.02794872,  0.02317957,  0.04967467]
+  - [ 0.02320852,  0.00071190,  0.99973039,  0.00368844]
+  - [ 0.02792469,  0.99960910, -0.00136008, -0.05041466]
+  - [ 0.0,         0.0,         0.0,         1.0       ]
+
+calib_cam_timeoffset: 0.014895025043715156
+
+accelerometer_noise_density: 0.002046311532059803
+accelerometer_random_walk: 3.2793722442857696e-05
+gyroscope_noise_density: 0.0004491777211520533
+gyroscope_random_walk: 1.4932100720276404e-05
+EOF
