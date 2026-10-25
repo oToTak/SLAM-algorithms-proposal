@@ -1,0 +1,10 @@
+method: orbslam3
+mode: mono
+dataset: ucu
+seq: seq01
+run: 2
+commit: 314ff05
+config: configs/orbslam3/UCU_mono.yaml
+coverage: 0.99
+tracking_lost: false
+notes: "per-frame trajectory; Sim(3)-aligned to GNSS (position-only, ~1 m)"

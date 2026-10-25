@@ -1,0 +1,10 @@
+method: orbslam3
+mode: rgbd
+dataset: tum
+seq: fr1_xyz
+run: 1
+commit: 16dd357
+config: Examples/RGB-D/TUM1.yaml
+coverage: 1.00
+tracking_lost: false
+notes: "ORB-SLAM3 4452a3c; mono saves keyframes only"
