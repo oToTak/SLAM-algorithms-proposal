@@ -1,0 +1,10 @@
+method: dpvo
+mode: mono
+dataset: ucu
+seq: seq01
+run: 1
+commit: 388261acbdd2b5097e1bca9c178711c7a6b00d55
+config: configs/dpvo/calib_ucu.txt
+coverage: 1.00
+tracking_lost: false
+notes: "DPVO 0ac95b6, config/default.yaml, stride=1, 6532 frames. Colab T4, Python 3.13, torch 2.11.0+cu130, CUDA 13.0; DPVO sources patched for new torch (Tensor.type() -> scalar_type() in dispatch macros, __init__.py in dpvo/loop_closure); env note added by hand after the run."
